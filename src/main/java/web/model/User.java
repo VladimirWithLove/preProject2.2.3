@@ -13,17 +13,17 @@ public class User {
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
-    @NotBlank(message = "Surname is required field")
+//    @NotBlank(message = "Surname is required field")
     private String name;
     @Column(name = "surname")
-    @NotBlank(message = "Surname is required field")
+//    @NotBlank(message = "Surname is required field")
     private String surname;
     @Column(name = "age")
-    @Min(value = 0, message = "must be greater then 0")
-    @Max(value = 150, message = "must be less then 150")
+//    @Min(value = 0, message = "must be greater then 0")
+//    @Max(value = 150, message = "must be less then 150")
     private int age;
     @Column(name = "profession")
-    @NotBlank(message = "Surname is required field, if you are unemployed write this")
+//    @NotBlank(message = "Surname is required field, if you are unemployed write this")
     private String profession;
 
     public User() {

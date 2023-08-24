@@ -1,10 +1,8 @@
 package web.controller;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.model.User;
 import web.service.UserService;
@@ -37,33 +35,29 @@ public class UsersController {
     }
 
     @PostMapping(value = "/save")
-    public String createUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
-        if (!bindingResult.hasErrors()) {
-            userService.add(user);
-            return "redirect:/users";
-        }
-        else return "create-user";
+    public String createUser(@ModelAttribute("user") User user) {
+        userService.add(user);
+
+        return "redirect:/users";
     }
 
-    @GetMapping("/update")
-    public String update(@RequestParam long id, Model model) {
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable("id") long id, Model model) {
         User user = userService.getUser(id);
         model.addAttribute("user", user);
 
         return "update-user";
     }
 
-    @PostMapping(value = "/updateUser")
-    public String updateUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
-        if (!bindingResult.hasErrors()) {
-            userService.add(user);
-            return "redirect:/users";
-        }
-        else return "update-user";
+    @PostMapping(value = "/updateUser/{id}")
+    public String updateUser(@PathVariable("id") long id, @ModelAttribute("user") User user) {
+        userService.updateUser(id, user);
+
+        return "redirect:/users";
     }
 
-    @GetMapping("/delete")
-    public String deleteUser(@RequestParam long id) {
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") long id) {
         userService.deleteUser(id);
 
         return "redirect:/users";
